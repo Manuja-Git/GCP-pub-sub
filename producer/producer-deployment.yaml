@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer
+  template:
+    metadata:
+      labels:
+        app: producer
+    spec:
+      containers:
+      - name: producer
+        image: gcr.io/core-plate-424123-h0/producer
+        ports:
+        - containerPort: 80
+        env:
+        - name: GOOGLE_CLOUD_PROJECT
+          value: "core-plate-424123-h0"
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/app/core-plate-424123-h0-48af2af71658.json"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: producer-service
+spec:
+  selector:
+    app: producer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80  # Adjust this if your producer app listens on a different port
+  type: LoadBalancer
+
+

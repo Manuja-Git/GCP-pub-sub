@@ -1,0 +1,9 @@
+FROM python:3.8-slim
+
+RUN pip install google-cloud-pubsub psycopg2-binary
+
+WORKDIR /app
+COPY consumer.py .
+COPY core-plate-424123-h0-48af2af71658.json .
+
+CMD ["python", "consumer.py"]

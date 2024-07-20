@@ -1,0 +1,14 @@
+FROM python:3.8-slim
+
+RUN pip install flask flask-cors google-cloud-pubsub
+
+WORKDIR /app
+COPY producer.py .
+COPY templates/ templates/
+COPY core-plate-424123-h0-48af2af71658.json .
+
+# Expose port
+EXPOSE 80
+
+CMD ["python", "producer.py"]
+

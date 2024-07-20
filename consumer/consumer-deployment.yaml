@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+      - name: consumer
+        image: gcr.io/core-plate-424123-h0/consumer
+        env:
+        - name: GOOGLE_CLOUD_PROJECT
+          value: "core-plate-424123-h0"
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/app/core-plate-424123-h0-48af2af71658.json"
+        - name: DB_HOST
+          value: "34.29.6.117"
+        - name: DB_USER
+          value: "manu"
+        - name: DB_PASSWORD
+          value: "Manu@427"
+        - name: DB_NAME
+          value: "myappdb"
